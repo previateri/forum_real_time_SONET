@@ -9,7 +9,7 @@
                 <a href="{{ route('home') }}" class="brand-logo">{{__('My Heroes - Forum')}}</a>
                 <ul class="right">
                     <li>
-                        <a href="#!" data-activates="locale" class="dropdown-button">{{ __('Language') }}</a>
+                        <a href="#!" data-activates="locale" data-beloworigin="true" data-hover="true" class="dropdown-button">{{ __('Language') }}</a>
                     </li>
                 </ul>
             </div>

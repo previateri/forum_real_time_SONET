@@ -13,15 +13,32 @@
 
 Route::get('/', function () {
     return view('thread.index');
-})->name('home');
+})->name('inicio');
 
 
-Route::get('/threads/{id}', function($id){
+Route::get('/threads/{id}', function ($id) {
     $result = \App\Thread::findOrFail($id);
     return view('thread.view', compact('result'));
 });
 
-Route::get('/locale/{locale}', function($locale){
+Route::get('/locale/{locale}', function ($locale) {
     session(['locale' => $locale]);
     return back();
 });
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/threads', 'ThreadController@index');
+    Route::post('/threads', 'ThreadController@store');
+    Route::put('/threads/{thread}', 'ThreadController@update');
+    Route::get('/threads/{thread}/edit', function (\App\Thread $thread) {
+        if (\Auth::user()->can('update', $thread)):
+            return view('thread.edit', compact('thread'));
+        else:
+            return redirect()->back();
+        endif;
+    });
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

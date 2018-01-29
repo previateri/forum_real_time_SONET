@@ -2,7 +2,14 @@
 @section('content')
 <div class="container">
     <h4>{{__('Recent Threads')}}</h4>
-    <threads title="{{ __('Threads') }}" replies="{{ __('Replies') }}" action="{{ __('Open') }}">
+    <threads
+            title="{{ __('Threads') }}"
+            replies="{{ __('Replies') }}"
+            action="{{ __('Open') }}"
+            new-thread="{{ __('New Thread') }}"
+            title-thread="{{ __('Title') }}"
+            body-thread="{{ __('Content') }}"
+            send="{{ __('Send') }}" >
         @include('layouts.default.preloader')
     </threads>
 </div>

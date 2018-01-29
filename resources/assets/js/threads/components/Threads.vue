@@ -1,5 +1,5 @@
 <template>
-    <div class="card lime lighten-4">
+    <div class="card">
         <div class="card-content">
             <span class="card-title">{{ title }}</span>
             <table>
@@ -12,22 +12,59 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Title of Thread Laravel Real Time</td>
-                    <td>6</td>
+                <tr v-for="thread in threads_response.data">
+                    <td>{{ thread.id }}</td>
+                    <td>{{ thread.title }}</td>
+                   <td>0</td>
                     <td>
-                        <a href="/threads/1">{{ action }}</a>
+                        <a :href="'/threads/' + thread.id">{{ action }}</a>
                     </td>
                 </tr>
                 </tbody>
             </table>
+        </div>
+
+        <div class="card-content white">
+            <span class="card-title">{{ newThread }}</span>
+            <form @submit.prevent="save()">
+                <div class="input-field">
+                    <input type="text" :placeholder="Titulo" v-model="threads_to_save.title" />
+                </div>
+                <div class="input-field">
+                    <textarea class="materialize-textarea" :placeholder="bodyThread" v-model="threads_to_save.body"></textarea>
+                </div>
+                <button type="submit" class="btn red accent-2">{{ send }}</button>
+            </form>
         </div>
     </div>
 </template>
 
 <script>
     export default {
-        props: ['title', 'replies', 'action']
+        props           : ['title', 'replies', 'action', 'newThread', 'titleThread', 'bodyThread', 'send'],
+        data(){
+            return {
+                threads_response : [],
+                threads_to_save: {
+                    'title' : '',
+                    'body'  : ''
+                }
+            }
+        },
+        methods:{
+                save(){
+                    window.axios.post('/threads', this.threads_to_save).then(() => {
+                        this.getThreads()
+                    })
+                },
+                getThreads(){
+                    window.axios.get('/threads').then((response) => {
+                        this.threads_response = response.data
+                    })
+                }
+        },
+       mounted(){
+           this.getThreads()
+       }
     }
 </script>
