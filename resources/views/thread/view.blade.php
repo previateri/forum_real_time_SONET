@@ -8,14 +8,19 @@
                 {!! $result->body !!}
             </div>
             <div class="card-action">
-            @if(\Auth::user()->can('update', $result))
+            @if(\Auth::user() and \Auth::user()->can('update', $result))
                     <a href="/threads/{{ $result->id }}/edit">{{ __('Edit') }}</a>
             @endif
                 <a href="{{ route('inicio') }}">{{ __('Back') }}</a>
             </div>
         </div>
 
-    <replies responded="{{__('Responded')}}" reply="{{ __("Reply") }}" your-answer="{{ __('Yout Answer:') }}" send="{{ __('Send') }}">
+    <replies
+            responded="{{__('Responded')}}"
+            reply="{{ __("Reply") }}"
+            your-answer="{{ __('Yout Answer:') }}"
+            send="{{ __('Send') }}"
+            thread-id="{{ $result->id }}">
             @include('layouts.default.preloader')
         </replies>
     </div>

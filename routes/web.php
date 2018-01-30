@@ -26,6 +26,8 @@ Route::get('/locale/{locale}', function ($locale) {
     return back();
 });
 
+
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/threads', 'ThreadController@index');
     Route::post('/threads', 'ThreadController@store');
@@ -37,6 +39,8 @@ Route::middleware(['auth'])->group(function () {
             return redirect()->back();
         endif;
     });
+    Route::get('/replies/{id}', 'ReplyController@show');
+    Route::post('/replies', 'ReplyController@store');
 });
 
 Auth::routes();
