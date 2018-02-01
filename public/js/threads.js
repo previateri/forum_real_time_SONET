@@ -1,40 +1,6 @@
 webpackJsonp([2],{
 
-/***/ 38:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(39);
-
-
-/***/ }),
-
-/***/ 39:
-/***/ (function(module, exports, __webpack_require__) {
-
-
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
-window.Vue = __webpack_require__(3);
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-Vue.component('threads', __webpack_require__(42));
-
-var app = new Vue({
-  el: '#app'
-});
-
-/***/ }),
-
-/***/ 4:
+/***/ 1:
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */
@@ -144,15 +110,49 @@ module.exports = function normalizeComponent (
 
 /***/ }),
 
-/***/ 42:
+/***/ 51:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(52);
+
+
+/***/ }),
+
+/***/ 52:
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/**
+ * First we will load all of this project's JavaScript dependencies which
+ * includes Vue and other libraries. It is a great starting point when
+ * building robust, powerful web applications using Vue and Laravel.
+ */
+
+window.Vue = __webpack_require__(2);
+
+/**
+ * Next, we will create a fresh Vue application instance and attach it to
+ * the page. Then, you may begin adding components to this application
+ * or customize the JavaScript scaffolding to fit your unique needs.
+ */
+
+Vue.component('threads', __webpack_require__(53));
+
+var app = new Vue({
+  el: '#app'
+});
+
+/***/ }),
+
+/***/ 53:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(4)
+var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(43)
+var __vue_script__ = __webpack_require__(54)
 /* template */
-var __vue_template__ = __webpack_require__(44)
+var __vue_template__ = __webpack_require__(55)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -192,7 +192,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 43:
+/***/ 54:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -268,13 +268,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     mounted: function mounted() {
+        var _this3 = this;
+
         this.getThreads();
+        Echo.channel('new.thread').listen('NewThread', function (e) {
+            if (e.thread) {
+                _this3.threads_response.data.splice(0, 0, e.thread);
+            }
+        });
     }
 });
 
 /***/ }),
 
-/***/ 44:
+/***/ 55:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -345,7 +352,7 @@ var render = function() {
                   expression: "threads_to_save.title"
                 }
               ],
-              attrs: { type: "text", placeholder: _vm.Titulo },
+              attrs: { type: "text", placeholder: _vm.title },
               domProps: { value: _vm.threads_to_save.title },
               on: {
                 input: function($event) {
@@ -404,4 +411,4 @@ if (false) {
 
 /***/ })
 
-},[38]);
+},[51]);

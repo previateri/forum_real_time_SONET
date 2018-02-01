@@ -43,13 +43,56 @@ if (token) {
  * allows your team to easily build robust real-time web applications.
  */
 
-// import Echo from 'laravel-echo'
+import Echo from 'laravel-echo'
 
-// window.Pusher = require('pusher-js');
+window.Pusher = require('pusher-js');
 
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: 'your-pusher-key',
-//     cluster: 'mt1',
-//     encrypted: true
-// });
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: 'b54fda078ce157070a26',
+    cluster: 'us2',
+    encrypted: false
+});
+
+import swal from 'sweetalert2'
+
+const successCallback = (response) => {
+    return response;
+}
+
+const errorCallback = (error) => {
+    switch (error.response.status){
+        case 401:
+            swal({
+                title               : 'Autenticação',
+                text                : 'Você precisa estar logado para acessar este recurso. Deseja realizar o seu Login?',
+                type                : 'warning',
+                showCancelButton    : true,
+                confirmButtonText   : 'Sim',
+                cancelButtonText    : 'Não, obrigado.'
+            }).then((result) => {
+                if(result.value){
+                    window.location = '/login';
+                }
+            });
+            break;
+        case 422:
+            swal("Verifique...", "Todos os campos são obrigatórios aqui. Por favor verifique.", "info");
+            break;
+        default:
+           swal('Ops...', 'Ocorreu um erro desconhecido, desculpe.','error');
+            break;
+    }
+
+    return Promise.reject(error);
+}
+
+window.axios.interceptors.response.use(successCallback, errorCallback);
+
+window.Vue = require('vue');
+
+Vue.component('loader', require('./commons/axiosLoader.vue'));
+
+const commomApps = new Vue({
+    el: '#loader'
+})

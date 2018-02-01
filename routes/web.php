@@ -26,20 +26,16 @@ Route::get('/locale/{locale}', function ($locale) {
     return back();
 });
 
-
+Route::get('/threads', 'ThreadController@index');
+Route::get('/replies/{id}', 'ReplyController@show');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/threads', 'ThreadController@index');
     Route::post('/threads', 'ThreadController@store');
     Route::put('/threads/{thread}', 'ThreadController@update');
     Route::get('/threads/{thread}/edit', function (\App\Thread $thread) {
-        if (\Auth::user()->can('update', $thread)):
             return view('thread.edit', compact('thread'));
-        else:
-            return redirect()->back();
-        endif;
     });
-    Route::get('/replies/{id}', 'ReplyController@show');
+
     Route::post('/replies', 'ReplyController@store');
 });
 

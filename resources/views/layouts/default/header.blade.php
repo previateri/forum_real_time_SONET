@@ -6,7 +6,7 @@
     <nav>
         <div class="nav-wrapper black">
             <div class="container yellow-text">
-                <a href="{{ route('home') }}" class="brand-logo">{{__('My Heroes - Forum')}}</a>
+                <a href="/" class="brand-logo">{{__('My Heroes - Forum')}}</a>
                 <ul class="right">
                     <li>
                         <a href="#!" data-activates="locale" data-beloworigin="true" data-hover="true" class="dropdown-button">{{ __('Language') }}</a>

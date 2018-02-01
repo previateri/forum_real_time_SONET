@@ -28,7 +28,7 @@
             <span class="card-title">{{ newThread }}</span>
             <form @submit.prevent="save()">
                 <div class="input-field">
-                    <input type="text" :placeholder="Titulo" v-model="threads_to_save.title" />
+                    <input type="text" :placeholder="title" v-model="threads_to_save.title" />
                 </div>
                 <div class="input-field">
                     <textarea class="materialize-textarea" :placeholder="bodyThread" v-model="threads_to_save.body"></textarea>
@@ -60,11 +60,16 @@
                 getThreads(){
                     window.axios.get('/threads').then((response) => {
                         this.threads_response = response.data
-                    })
+                    });
                 }
         },
        mounted(){
            this.getThreads()
+            Echo.channel('new.thread').listen('NewThread', (e) => {
+                if (e.thread) {
+                     this.threads_response.data.splice(0, 0, e.thread)
+                 }
+            });
        }
     }
 </script>

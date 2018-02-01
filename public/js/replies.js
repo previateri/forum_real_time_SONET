@@ -1,6 +1,6 @@
 webpackJsonp([3],{
 
-/***/ 4:
+/***/ 1:
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */
@@ -110,15 +110,15 @@ module.exports = function normalizeComponent (
 
 /***/ }),
 
-/***/ 45:
+/***/ 56:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(46);
+module.exports = __webpack_require__(57);
 
 
 /***/ }),
 
-/***/ 46:
+/***/ 57:
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -128,7 +128,7 @@ module.exports = __webpack_require__(46);
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-window.Vue = __webpack_require__(3);
+window.Vue = __webpack_require__(2);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -136,7 +136,7 @@ window.Vue = __webpack_require__(3);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('replies', __webpack_require__(47));
+Vue.component('replies', __webpack_require__(58));
 
 var app = new Vue({
   el: '#app'
@@ -144,15 +144,15 @@ var app = new Vue({
 
 /***/ }),
 
-/***/ 47:
+/***/ 58:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(4)
+var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(48)
+var __vue_script__ = __webpack_require__(59)
 /* template */
-var __vue_template__ = __webpack_require__(49)
+var __vue_template__ = __webpack_require__(60)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -192,7 +192,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 48:
+/***/ 59:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -252,13 +252,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     mounted: function mounted() {
+        var _this3 = this;
+
         this.getReplies();
+        Echo.channel('new.reply.' + this.thread_id).listen('NewReply', function (e) {
+            if (e.reply) {
+                _this3.getReplies();
+            }
+        });
     }
 });
 
 /***/ }),
 
-/***/ 49:
+/***/ 60:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -342,4 +349,4 @@ if (false) {
 
 /***/ })
 
-},[45]);
+},[56]);
