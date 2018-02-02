@@ -26,7 +26,10 @@
                         <a href="#!" data-activates="locale" data-beloworigin="true" data-hover="true" class="dropdown-button">{{ __('Language') }}</a>
                     </li>
                     @if(\Auth::user())
-                        <li><a href="#!" data-activates="user" data-beloworigin="true" data-hover="true" class="dropdown-button">{{ \Auth::user()->name }}</a></li>
+                        <li>
+                            <span class="glyphicon glyphicon-user text-white"></span>
+                            <a href="#!" data-activates="user" data-beloworigin="true" data-hover="true" class="dropdown-button">{{ \Auth::user()->name }}</a>
+                        </li>
                     @else
                         <li><a href="/login">{{ __('Login') }}</a></li>
                         <li><a href="/register">{{ __('Register') }}</a></li>

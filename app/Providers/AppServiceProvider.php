@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Observers\RepliesObservers;
+use App\Reply;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,6 +15,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Reply::observe(RepliesObservers::class);
+        
         \Schema::defaultStringLength(191);
     }
 
@@ -23,6 +27,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+
     }
 }
