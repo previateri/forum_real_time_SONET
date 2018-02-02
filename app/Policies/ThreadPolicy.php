@@ -13,7 +13,12 @@ class ThreadPolicy
     public function update(User $user, Thread $thread)
     {
 
-        return $user->id === $thread->user_id;
+        $rules = ($user->id === $thread->user_id) || ($user->role === 'admin');
+        return $rules;
 
+    }
+
+    public function isAdmin(User $user){
+        return $user->role === 'admin';
     }
 }

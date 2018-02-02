@@ -17,7 +17,9 @@ class ThreadController extends Controller
      */
     public function index()
     {
-        $threads = Thread::orderBy('updated_at', 'desc')->paginate();
+        $threads = Thread::orderBy('fixed', 'desc')
+            ->orderBy('updated_at', 'desc')
+            ->paginate();
 
         return response()->json($threads);
     }
@@ -51,27 +53,35 @@ class ThreadController extends Controller
      */
     public function update(ThreadsRequest $request, Thread $thread)
     {
-        if ($this->authorize('update', $thread)):
-            $thread->title = $request->input('title');
-            $thread->body = $request->input('body');
-            $thread->update();
+        $this->authorize('update', $thread);
+        $thread->title = $request->input('title');
+        $thread->body = $request->input('body');
+        $thread->update();
 
-            return redirect("/threads/{$thread->id}");
-        else:
-            return redirect("/threads/{$thread->id}");
-        endif;
-
-
+        return redirect("/threads/{$thread->id}");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Thread $thread
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Thread $thread)
     {
         //
+    }
+
+    public function pin(Thread $thread)
+    {
+        $this->authorize('isAdmin', $thread);
+        $thread->fixed = ($thread->fixed ? false : true);
+        $thread->save();
+
+        return redirect()->to('/');
+    }
+
+    public function close(Thread $thread){
+
+        $this->authorize('isAdmin', $thread);
+        $thread->closed = ($thread->closed ? false : true);
+        $thread->save();
+
+        return redirect()->to("/");
     }
 }

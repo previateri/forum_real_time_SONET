@@ -5,7 +5,7 @@
   "Loading..."              : "Carregando...",
   "Threads"                 : "Tópico",
   "Replies"                 : "Respostas",
-  "Open"                    : "Visualizar",
+  "View"                    : "Visualizar",
   "Responded"               : "Respondeu",
   "Reply"                   : "Resposta",
   "Yout Answer:"            : "Sua Resposta",
@@ -24,6 +24,8 @@
   "Confirm Password"        : "Confirme a Senha",
   "Forgot Your Password?"   : "Esqueceu sua senha?",
   "Login"                   : "Entrar",
-  "Logout"                 : "Sair",
-  "Profile"                 : "Perfil"
+  "Logout"                  : "Sair",
+  "Profile"                 : "Perfil",
+  "Fix"                     : "Fixar",
+  "Open | Close"            : "Fechar | Abrir"
 }

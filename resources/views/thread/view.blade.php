@@ -20,7 +20,9 @@
             reply="{{ __("Reply") }}"
             your-answer="{{ __('Yout Answer:') }}"
             send="{{ __('Send') }}"
-            thread-id="{{ $result->id }}">
+            fix="{{__('Fix')}}"
+            thread-id="{{ $result->id }}"
+            is-Closed="{{ $result->closed }}">
             @include('layouts.default.preloader')
         </replies>
     </div>

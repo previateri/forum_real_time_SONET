@@ -238,11 +238,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['title', 'replies', 'action', 'newThread', 'titleThread', 'bodyThread', 'send'],
+    props: ['title', 'replies', 'action', 'newThread', 'titleThread', 'bodyThread', 'send', 'fix', 'close'],
     data: function data() {
         return {
+            logged: window.user || {},
             threads_response: [],
             threads_to_save: {
                 'title': '',
@@ -308,95 +311,137 @@ var render = function() {
         _c(
           "tbody",
           _vm._l(_vm.threads_response.data, function(thread) {
-            return _c("tr", [
-              _c("td", [_vm._v(_vm._s(thread.id))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(thread.title))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(thread.replies_count || 0))]),
-              _vm._v(" "),
-              _c("td", [
-                _c("a", { attrs: { href: "/threads/" + thread.id } }, [
-                  _vm._v(_vm._s(_vm.action))
+            return _c(
+              "tr",
+              {
+                class: {
+                  "lime light-4": thread.fixed,
+                  "grey-text text-light-2": thread.closed
+                }
+              },
+              [
+                _c("td", [_vm._v(_vm._s(thread.id))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(thread.title))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(thread.replies_count || 0))]),
+                _vm._v(" "),
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "btn",
+                      attrs: { href: "/threads/" + thread.id }
+                    },
+                    [_vm._v(_vm._s(_vm.action))]
+                  ),
+                  _vm._v(" "),
+                  _vm.logged.role === "admin"
+                    ? _c(
+                        "a",
+                        {
+                          staticClass: "btn",
+                          attrs: { href: "/threads/pin/" + thread.id }
+                        },
+                        [_vm._v(_vm._s(_vm.fix))]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.logged.role === "admin"
+                    ? _c(
+                        "a",
+                        {
+                          staticClass: "btn",
+                          attrs: { href: "/threads/close/" + thread.id }
+                        },
+                        [_vm._v(_vm._s(_vm.close))]
+                      )
+                    : _vm._e()
                 ])
-              ])
-            ])
+              ]
+            )
           })
         )
       ])
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "card-content white" }, [
-      _c("span", { staticClass: "card-title" }, [
-        _vm._v(_vm._s(_vm.newThread))
-      ]),
-      _vm._v(" "),
-      _c(
-        "form",
-        {
-          on: {
-            submit: function($event) {
-              $event.preventDefault()
-              _vm.save()
-            }
-          }
-        },
-        [
-          _c("div", { staticClass: "input-field" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.threads_to_save.title,
-                  expression: "threads_to_save.title"
-                }
-              ],
-              attrs: { type: "text", placeholder: _vm.title },
-              domProps: { value: _vm.threads_to_save.title },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.threads_to_save, "title", $event.target.value)
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "input-field" }, [
-            _c("textarea", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.threads_to_save.body,
-                  expression: "threads_to_save.body"
-                }
-              ],
-              staticClass: "materialize-textarea",
-              attrs: { placeholder: _vm.bodyThread },
-              domProps: { value: _vm.threads_to_save.body },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.threads_to_save, "body", $event.target.value)
-                }
-              }
-            })
+    _vm.logged.id
+      ? _c("div", { staticClass: "card-content white" }, [
+          _c("span", { staticClass: "card-title" }, [
+            _vm._v(_vm._s(_vm.newThread))
           ]),
           _vm._v(" "),
           _c(
-            "button",
-            { staticClass: "btn red accent-2", attrs: { type: "submit" } },
-            [_vm._v(_vm._s(_vm.send))]
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  _vm.save()
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "input-field" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.threads_to_save.title,
+                      expression: "threads_to_save.title"
+                    }
+                  ],
+                  attrs: { type: "text", placeholder: _vm.title },
+                  domProps: { value: _vm.threads_to_save.title },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.threads_to_save,
+                        "title",
+                        $event.target.value
+                      )
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "input-field" }, [
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.threads_to_save.body,
+                      expression: "threads_to_save.body"
+                    }
+                  ],
+                  staticClass: "materialize-textarea",
+                  attrs: { placeholder: _vm.bodyThread },
+                  domProps: { value: _vm.threads_to_save.body },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.threads_to_save, "body", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c(
+                "button",
+                { staticClass: "btn red accent-2", attrs: { type: "submit" } },
+                [_vm._v(_vm._s(_vm.send))]
+              )
+            ]
           )
-        ]
-      )
-    ])
+        ])
+      : _vm._e()
   ])
 }
 var staticRenderFns = []

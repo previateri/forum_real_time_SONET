@@ -1,14 +1,17 @@
 <template>
     <div>
         <div class="card">
-            <div class="card-content" v-for="data in replies">
+            <div class="card-content" v-for="data in replies" :class="{'lime light-4' : data.highlighted}">
                 <span class="card-title">{{ data.user.name }} - {{ responded }}</span>
                 <blockquote>
                     <p>{{ data.body }}</p>
                 </blockquote>
+                <div class="card-action" v-if="logged.role === 'admin' ">
+                    <a :href="'/replies/highlite/' + data.id">destacar</a>
+                </div>
             </div>
         </div>
-        <div class="card grey lighten-4">
+        <div class="card grey lighten-4"  v-if="logged.id && isClosed == '0'">
             <div class="card-content">
                 <span class="card-title">{{ reply }}</span>
                 <form @submit.prevent="save()">
@@ -24,10 +27,12 @@
 
 <script>
     export default {
-        props: ['responded', 'reply', 'yourAnswer', 'send', 'threadId'],
+        props: ['responded', 'reply', 'yourAnswer', 'send', 'threadId', 'isClosed'],
         data(){
             return {
                 replies: [],
+                logged: window.user || {},
+                is_closed: this.isClosed,
                 thread_id: this.threadId,
                 reply_to_save: {
                     body: '',

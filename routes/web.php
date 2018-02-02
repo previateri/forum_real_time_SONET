@@ -29,17 +29,21 @@ Route::get('/locale/{locale}', function ($locale) {
 Route::get('/threads', 'ThreadController@index');
 Route::get('/replies/{id}', 'ReplyController@show');
 
+
 Route::get('/login/{provider}', 'SocialAuthController@redirect');
 Route::get('/login/{provider}/callback', 'SocialAuthController@callback');
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/threads', 'ThreadController@store');
+    Route::get('/threads/pin/{thread}', 'ThreadController@pin');
+    Route::get('/threads/close/{thread}', 'ThreadController@close');
     Route::put('/threads/{thread}', 'ThreadController@update');
     Route::get('/threads/{thread}/edit', function (\App\Thread $thread) {
             return view('thread.edit', compact('thread'));
     });
 
     Route::post('/replies', 'ReplyController@store');
+    Route::get('/replies/highlite/{id}', 'ReplyController@highlite');
 });
 
 Auth::routes();
