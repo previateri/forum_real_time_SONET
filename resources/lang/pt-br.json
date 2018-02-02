@@ -15,5 +15,15 @@
   "Content"                 : "Conteúdo",
   "Edit"                    : "Editar",
   "Editing"                 : "Editando",
-  "Back"                    : "Voltar"
+  "Back"                    : "Voltar",
+  "You are logged in!"      : "Agora você esta logado!",
+  "Reset Password"          : "Resete sua Senha",
+  "Register"                : "Registre-se",
+  "Name"                    : "Nome",
+  "Password"                : "Senha",
+  "Confirm Password"        : "Confirme a Senha",
+  "Forgot Your Password?"   : "Esqueceu sua senha?",
+  "Login"                   : "Entrar",
+  "Logout"                 : "Sair",
+  "Profile"                 : "Perfil"
 }

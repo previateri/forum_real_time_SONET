@@ -29,6 +29,9 @@ Route::get('/locale/{locale}', function ($locale) {
 Route::get('/threads', 'ThreadController@index');
 Route::get('/replies/{id}', 'ReplyController@show');
 
+Route::get('/login/{provider}', 'SocialAuthController@redirect');
+Route::get('/login/{provider}/callback', 'SocialAuthController@callback');
+
 Route::middleware(['auth'])->group(function () {
     Route::post('/threads', 'ThreadController@store');
     Route::put('/threads/{thread}', 'ThreadController@update');
@@ -40,5 +43,3 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
