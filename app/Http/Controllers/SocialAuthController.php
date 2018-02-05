@@ -42,6 +42,7 @@ class SocialAuthController extends Controller
         $newUser->name = $this->user->name;
         $newUser->email = $this->user->email;
         $newUser->password = md5(rand(1,1000));
+        $newUser->avatar = $this->user->getAvatar();
         $newUser->save();
 
         $this->newSocialUser($newUser);

@@ -224,6 +224,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['responded', 'reply', 'yourAnswer', 'send', 'threadId', 'isClosed'],
@@ -277,92 +284,110 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "div",
-      { staticClass: "card" },
+  return _c(
+    "div",
+    [
       _vm._l(_vm.replies, function(data) {
         return _c(
           "div",
           {
-            staticClass: "card-content",
+            staticClass: "card horizontal",
             class: { "lime light-4": data.highlighted }
           },
           [
-            _c("span", { staticClass: "card-title" }, [
-              _vm._v(_vm._s(data.user.name) + " - " + _vm._s(_vm.responded))
+            _c("div", { staticClass: "card-images" }, [
+              _c("img", {
+                staticClass: "circle responsive-img",
+                staticStyle: { "max-width": "35%", margin: "0 auto" },
+                attrs: { src: data.user.photo_url, alt: "" }
+              })
             ]),
             _vm._v(" "),
-            _c("blockquote", [_c("p", [_vm._v(_vm._s(data.body))])]),
-            _vm._v(" "),
-            _vm.logged.role === "admin"
-              ? _c("div", { staticClass: "card-action" }, [
-                  _c("a", { attrs: { href: "/replies/highlite/" + data.id } }, [
-                    _vm._v("destacar")
-                  ])
-                ])
-              : _vm._e()
-          ]
-        )
-      })
-    ),
-    _vm._v(" "),
-    _vm.logged.id && _vm.isClosed == "0"
-      ? _c("div", { staticClass: "card grey lighten-4" }, [
-          _c("div", { staticClass: "card-content" }, [
-            _c("span", { staticClass: "card-title" }, [
-              _vm._v(_vm._s(_vm.reply))
-            ]),
-            _vm._v(" "),
-            _c(
-              "form",
-              {
-                on: {
-                  submit: function($event) {
-                    $event.preventDefault()
-                    _vm.save()
-                  }
-                }
-              },
-              [
-                _c("div", { staticClass: "input-field" }, [
-                  _c("textarea", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.reply_to_save.body,
-                        expression: "reply_to_save.body"
-                      }
-                    ],
-                    staticClass: "materialize-textarea",
-                    attrs: { rows: "10", placeholder: _vm.yourAnswer },
-                    domProps: { value: _vm.reply_to_save.body },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.reply_to_save, "body", $event.target.value)
-                      }
-                    }
-                  })
+            _c("div", { staticClass: "card-stacked" }, [
+              _c("div", { staticClass: "card-content" }, [
+                _c("span", { staticClass: "card-title" }, [
+                  _vm._v(_vm._s(data.user.name) + " - " + _vm._s(_vm.responded))
                 ]),
                 _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn green accent-2",
-                    attrs: { type: "submit" }
-                  },
-                  [_vm._v(_vm._s(_vm.send))]
-                )
-              ]
-            )
+                _c("blockquote", [_c("p", [_vm._v(_vm._s(data.body))])]),
+                _vm._v(" "),
+                _vm.logged.role === "admin"
+                  ? _c("div", { staticClass: "card-action" }, [
+                      _c(
+                        "a",
+                        { attrs: { href: "/replies/highlite/" + data.id } },
+                        [_vm._v("destacar")]
+                      )
+                    ])
+                  : _vm._e()
+              ])
+            ])
+          ]
+        )
+      }),
+      _vm._v(" "),
+      _vm.logged.id && _vm.isClosed == "0"
+        ? _c("div", { staticClass: "card grey lighten-4" }, [
+            _c("div", { staticClass: "card-content" }, [
+              _c("span", { staticClass: "card-title" }, [
+                _vm._v(_vm._s(_vm.reply))
+              ]),
+              _vm._v(" "),
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      _vm.save()
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "input-field" }, [
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.reply_to_save.body,
+                          expression: "reply_to_save.body"
+                        }
+                      ],
+                      staticClass: "materialize-textarea",
+                      attrs: { rows: "10", placeholder: _vm.yourAnswer },
+                      domProps: { value: _vm.reply_to_save.body },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.reply_to_save,
+                            "body",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn green accent-2",
+                      attrs: { type: "submit" }
+                    },
+                    [_vm._v(_vm._s(_vm.send))]
+                  )
+                ]
+              )
+            ])
           ])
-        ])
-      : _vm._e()
-  ])
+        : _vm._e()
+    ],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

@@ -34,6 +34,8 @@ Route::get('/login/{provider}', 'SocialAuthController@redirect');
 Route::get('/login/{provider}/callback', 'SocialAuthController@callback');
 
 Route::middleware(['auth'])->group(function () {
+
+    //Routes of Threads
     Route::post('/threads', 'ThreadController@store');
     Route::get('/threads/pin/{thread}', 'ThreadController@pin');
     Route::get('/threads/close/{thread}', 'ThreadController@close');
@@ -42,8 +44,14 @@ Route::middleware(['auth'])->group(function () {
             return view('thread.edit', compact('thread'));
     });
 
+    //Routes of Replies
     Route::post('/replies', 'ReplyController@store');
     Route::get('/replies/highlite/{id}', 'ReplyController@highlite');
+
+    //Routes of Profile
+    Route::get('/profile', 'ProfileController@edit');
+    Route::post('/profile', 'ProfileController@update');
+
 });
 
 Auth::routes();

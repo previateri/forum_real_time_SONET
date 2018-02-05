@@ -27,5 +27,8 @@
   "Logout"                  : "Sair",
   "Profile"                 : "Perfil",
   "Fix"                     : "Fixar",
-  "Open | Close"            : "Fechar | Abrir"
+  "Open | Close"            : "Fechar | Abrir",
+  "Profile"                 : "Perfil",
+  "New Password"            : "Nova Senha",
+  "Confirm New Password"    : "Confirmar a nova senha"
 }

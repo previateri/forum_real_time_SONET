@@ -27,8 +27,9 @@
                     </li>
                     @if(\Auth::user())
                         <li>
-                            <span class="glyphicon glyphicon-user text-white"></span>
-                            <a href="#!" data-activates="user" data-beloworigin="true" data-hover="true" class="dropdown-button">{{ \Auth::user()->name }}</a>
+                            <span style="float: left; padding-right: 15px;">|</span>
+                            <i class="material-icons blue-text text-darken-2" style="float: left; display: inline-block; margin-right: 1px;">account_circle</i>
+                            <a style="float: left" href="#!" data-activates="user" data-beloworigin="true" data-hover="true" class="dropdown-button">{{ substr(\Auth::user()->name, 0 , strpos(\Auth::user()->name, " ")) }}</a>
                         </li>
                     @else
                         <li><a href="/login">{{ __('Login') }}</a></li>

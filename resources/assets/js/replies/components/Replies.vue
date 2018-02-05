@@ -1,17 +1,24 @@
 <template>
     <div>
-        <div class="card">
-            <div class="card-content" v-for="data in replies" :class="{'lime light-4' : data.highlighted}">
-                <span class="card-title">{{ data.user.name }} - {{ responded }}</span>
-                <blockquote>
-                    <p>{{ data.body }}</p>
-                </blockquote>
-                <div class="card-action" v-if="logged.role === 'admin' ">
-                    <a :href="'/replies/highlite/' + data.id">destacar</a>
+        <div class="card horizontal" v-for="data in replies" :class="{'lime light-4' : data.highlighted}">
+            <div class="card-images">
+                <img :src="data.user.photo_url" alt="" class="circle responsive-img" style="max-width: 35%; margin:0 auto;">
+            </div>
+            <div class="card-stacked">
+                <div class="card-content">
+                    <span class="card-title">{{ data.user.name }} - {{ responded }}</span>
+                    <blockquote>
+                        <p>{{ data.body }}</p>
+                    </blockquote>
+                    <div class="card-action" v-if="logged.role === 'admin' ">
+                        <a :href="'/replies/highlite/' + data.id">destacar</a>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="card grey lighten-4"  v-if="logged.id && isClosed == '0'">
+
+        <!-- FORM DE RESPOSTA !-->
+        <div class="card grey lighten-4" v-if="logged.id && isClosed == '0'">
             <div class="card-content">
                 <span class="card-title">{{ reply }}</span>
                 <form @submit.prevent="save()">
@@ -43,19 +50,19 @@
         methods: {
             save(){
                 window.axios.post('/replies/', this.reply_to_save).then(() => {
-                   this.getReplies()
+                    this.getReplies()
                 });
             },
             getReplies(){
                 window.axios.get('/replies/' + this.thread_id).then((response) => {
-                    this.replies = response.data
+                        this.replies = response.data
                 });
             }
         },
         mounted() {
             this.getReplies()
             Echo.channel('new.reply.' + this.thread_id).listen('NewReply', (e) => {
-               if(e.reply){
+                if(e.reply){
                     this.getReplies()
                 }
             });
